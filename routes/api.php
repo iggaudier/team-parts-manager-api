@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\SystemPartController;
-use App\Http\Controllers\Api\TeamController;
-use App\Http\Controllers\Api\TeamPartController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SystemPartController;
+use App\Http\Controllers\TeamPartController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -17,9 +16,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // System Admin only routes
     Route::middleware('role:system_admin')->group(function () {
-        Route::apiResource('system-parts', SystemPartController::class);
-        Route::post('system-parts/import', [SystemPartController::class, 'import']);
         Route::get('system-parts/export', [SystemPartController::class, 'export']);
+        Route::post('system-parts/import', [SystemPartController::class, 'import']);
+        Route::apiResource('system-parts', SystemPartController::class);
         Route::apiResource('teams', TeamController::class);
     });
 
