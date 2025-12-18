@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'team_id',
     ];
 
     /**
@@ -44,5 +46,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function isSystemAdmin()
+    {
+        return $this->role === 'system_admin';
+    }
+
+    public function isTeamAdmin()
+    {
+        return $this->role === 'team_admin';
+    }
+
+    public function isTeamMember()
+    {
+        return $this->role === 'team_member';
     }
 }
